@@ -1,0 +1,22 @@
+[
+    {
+      "name": "Project 1",
+      "description": "Simple desc.",
+      "mail_client": "test@exemple.com"
+    },
+    {
+      "name": "Project 2",
+      "description": "Middle desc.",
+      "mail_client": "john.doe@gmail.com"
+    },
+    {
+      "name": "Project 3",
+      "description": "Hard desc.",
+      "mail_client": "undefined@hotmail.com"
+    },
+    {
+      "name": "Project 4",
+      "description": "Very Hard desc.",
+      "mail_client": "univ.lille@sfr.fr"
+    }
+  ]

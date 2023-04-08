@@ -13,22 +13,26 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-    const { name, age, image } = req.body;
+    const dto = req.body;
 
-    res.json(await createProject({ name, age, image }));
+    res.json(await createProject(dto));
 });
 
-router.delete("/:params", async (req: Request, res: Response) => {
-    const { id } = req.params;
+router.delete("/:id", async (req: Request, res: Response) => {
+    const id = req.params.id as string;
 
     res.json(await deleteProjectById(+id));
 });
 
 router.put("/:id", async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { name, image, age } = req.body;
+    const id = req.params.id as string;
+    const dto = req.body;
 
-    res.json(await updateProjectById(+id, { name, image, age }));
+    try {
+        res.json(await updateProjectById(+id, dto));
+    } catch (e) {
+        res.status(404).json({ message: "Project not found" });
+    }
 });
 
 export default router;

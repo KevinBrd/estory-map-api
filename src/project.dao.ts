@@ -27,7 +27,7 @@ export const deleteProjectById = async (id: number) => {
     if (index === -1) {
         throw new Error("Project not found");
     }
-    projects.splice(index, 1);
+    return projects.splice(index, 1)[0];
 };
 
 /**
@@ -39,9 +39,11 @@ export const updateProjectById = async (
     id: number,
     dto: UpdateProjectDto
 ) => {
-    const index = projects.findIndex((a) => a.id === id);
+    const index = projects.findIndex((project) => project.id === id);
     if (index === -1) {
         throw new Error("Project not found");
     }
     projects[index] = { ...projects[index], ...dto };
+
+    return projects[index];
 };
