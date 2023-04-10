@@ -1,4 +1,8 @@
-import { Project, CreateProjectDto, UpdateProjectDto } from "../types";
+import { getActors } from "../actors/actors.dao";
+import { getExigences } from "../exigences/exigences.dao";
+import { getFlux } from "../flux/flux.dao";
+import { getRegles } from "../regles/regles.dao";
+import { Project, CreateProjectDto, UpdateProjectDto, GetProjectDto, Flux, Exigence, RegleDeGestion, GetFluxDto, Actor } from "../types";
 
 const projects: Project[] = [
     {
@@ -7,59 +11,10 @@ const projects: Project[] = [
       "name": "Projet 1",
       "description": "Description du projet 1",
       "mail_client": "mailClient@gmail.com",
-      "actors": [
-          {
-            "id": 1,
-            "nom_role": "Acteur 1",
-            "attributs": [
-                {
-                  "nom": "Nom",
-                  "type": "string",
-                  "valeur": "Dupont"
-                },
-                {
-                  "nom": "Age",
-                  "type": "number",
-                  "valeur": 25
-                }
-            ]
-          }
-      ],
-      "fluxs": [
-          {
-            "id": 1,
-            "nom_flux": "Flux 1",
-            "acteur_emmeteur": {
-            "id": 1,
-            "nom_role": "Acteur 1",
-            "attributs": [
-              {
-                "nom": "Nom",
-                "type": "string",
-                "valeur": "Dupont"
-              },
-              {
-                "nom": "Age",
-                "type": "number",
-                "valeur": 25
-              }
-            ]
-            }
-          }
-      ],
-      "exigences": [
-        {
-          "id": 1,
-          "description": "Exigence 1",
-          "type": "Fonctionnelle"
-        }
-      ],
-      "regles": [
-        {
-          "id": 1,
-          "description": "Regle 1"
-        }
-      ]
+      "actors": [1],
+      "fluxs": [1],
+      "exigences": [1],
+      "regles": [1]
     }
   ];
 
@@ -69,7 +24,7 @@ const projects: Project[] = [
  * @returns The newly created project with its id
  */
 export const createProject = async (dto: CreateProjectDto) => {
-    const newProject = { ...dto, id: projects.length + 1 };
+    const newProject = { ...dto, id: projects.length + 1, actors: [], exigences: [], regles: [], fluxs: [] };
     projects.push(newProject);
     return newProject;
 };
@@ -77,7 +32,21 @@ export const createProject = async (dto: CreateProjectDto) => {
 /**
  * Return all projects from the database
  */
-export const getProjects = async () => projects;
+export const getProjects = async () => {
+  const fluxs = await getFlux();
+  const actors = await getActors();
+  const regles = await getRegles();
+  const exigences = await getExigences();
+
+  return projects.map(project => {
+    return {
+      ...project,
+      flux: fluxs.filter(flux => project.fluxs.includes(flux.id)),
+      actors: actors.filter(actor => project.actors.includes(actor.id)),
+      regles: regles.filter(regle => project.regles.includes(regle.id)),
+      exigences: exigences.filter(exigence => project.exigences.includes(exigence.id)),
+  }})
+};
 
 /**
  * Delete a project by its id

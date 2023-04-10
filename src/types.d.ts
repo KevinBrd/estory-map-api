@@ -5,6 +5,21 @@ export type CreateProjectDto = {
     mail_client?: string;
 };
 
+export type CreateFluxDto = {
+    nom_flux: string;
+    acteur_emetteur?: number;
+    acteur_recepteur?: number;
+};
+
+export type CreateExigenceDto = {
+    description: string;
+    type: string;
+};
+
+export type CreateRegleDto = {
+    description: string;
+};
+
 export type CreateActorDto = {
     nom_role: string;
     attributs?: { [key: string]: any }[];
@@ -25,9 +40,16 @@ export type Exigence = {
 export type Flux = {
     id: number;
     nom_flux: string;
-    acteur_emmeteur?: Actor;
-    acteur_recepteur?: Actor;
+    acteur_emetteur?: number;
+    acteur_recepteur?: number;
 };
+
+export type GetFluxDto = {
+    id: number;
+    nom_flux: string;
+    acteur_emetteur?: Actor;
+    acteur_recepteur?: Actor;
+}
 
 export type RegleDeGestion = {
     id: number;
@@ -39,10 +61,10 @@ export type UpdateProjectDto = {
     name?: string;
     description?: string;
     mail_client?: string;
-    actors?: Actor[];
-    fluxs?: Flux[];
-    regles?: RegleDeGestion[];
-    exigences?: Exigence[];
+    actors: number[];
+    fluxs: number[];
+    regles: number[];
+    exigences: number[];
 };
 
 export type Project = {
@@ -51,8 +73,20 @@ export type Project = {
     name: string;
     description: string;
     mail_client?: string;
-    actors?: Actor[];
-    fluxs?: Flux[];
-    regles?: RegleDeGestion[];
-    exigences?: Exigence[];
+    actors: number[];
+    fluxs: number[];
+    regles: number[];
+    exigences: number[];
+};
+
+export type GetProjectDto = {
+    id: number;
+    userId: number;
+    name: string;
+    description: string;
+    mail_client?: string;
+    actors: Actor[];
+    fluxs: GetFluxDto[];
+    regles: RegleDeGestion[];
+    exigences: Exigence[];
 };
