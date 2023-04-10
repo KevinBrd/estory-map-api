@@ -3,20 +3,7 @@ import { getExigences } from "../exigences/exigences.dao";
 import { getFlux } from "../flux/flux.dao";
 import { getRegles } from "../regles/regles.dao";
 import { Project, CreateProjectDto, UpdateProjectDto, GetProjectDto, Flux, Exigence, RegleDeGestion, GetFluxDto, Actor } from "../types";
-
-const projects: Project[] = [
-    {
-      "id": 1,
-      "userId": 1,
-      "name": "Projet 1",
-      "description": "Description du projet 1",
-      "mail_client": "mailClient@gmail.com",
-      "actors": [1],
-      "fluxs": [1],
-      "exigences": [1],
-      "regles": [1]
-    }
-  ];
+import ProjectModel from "./project.model";
 
 /**
  * Add a new project to the database
@@ -24,8 +11,8 @@ const projects: Project[] = [
  * @returns The newly created project with its id
  */
 export const createProject = async (dto: CreateProjectDto) => {
-    const newProject = { ...dto, id: projects.length + 1, actors: [], exigences: [], regles: [], fluxs: [] };
-    projects.push(newProject);
+    const newProject = { ...dto, id: Math.floor(Math.random() * 3000), actors: [], exigences: [], regles: [], fluxs: [] };
+    await ProjectModel.create(newProject);
     return newProject;
 };
 
@@ -37,6 +24,8 @@ export const getProjects = async () => {
   const actors = await getActors();
   const regles = await getRegles();
   const exigences = await getExigences();
+
+  const projects = await ProjectModel.find({});
 
   return projects.map(project => {
     return {
@@ -53,11 +42,7 @@ export const getProjects = async () => {
  * @param id The id of the project to delete
  */
 export const deleteProjectById = async (id: number) => {
-    const index = projects.findIndex((a) => a.id === id);
-    if (index === -1) {
-        throw new Error("Project not found");
-    }
-    return projects.splice(index, 1)[0];
+  return ProjectModel.findByIdAndDelete(id);
 };
 
 /**
@@ -69,11 +54,5 @@ export const updateProjectById = async (
     id: number,
     dto: UpdateProjectDto
 ) => {
-    const index = projects.findIndex((project) => project.id === id);
-    if (index === -1) {
-        throw new Error("Project not found");
-    }
-    projects[index] = { ...projects[index], ...dto };
-
-    return projects[index];
+    return ProjectModel.findOneAndUpdate({id}, dto);
 };

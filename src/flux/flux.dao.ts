@@ -1,12 +1,6 @@
 import { getActors } from "../actors/actors.dao";
 import { Flux, CreateFluxDto, GetFluxDto } from "../types";
-
-const fluxs: Flux[] = [{
-    id: 0,
-    nom_flux: "Note",
-    acteur_emetteur: 0,
-    acteur_recepteur: 1,
-}];
+import FluxModel from "./flux.model";
 
 /**
  * Add a new Flux to the database
@@ -14,10 +8,8 @@ const fluxs: Flux[] = [{
  * @returns The newly created Flux with its id
  */
 export const createFlux = async (dto: CreateFluxDto) => {
-    console.debug(dto);
-    const newFlux = { ...dto, id: fluxs.length + 1 };
-    fluxs.push(newFlux);
-    return newFlux;
+    const newFlux = { ...dto, id: Math.floor(Math.random() * 3000) };
+    return FluxModel.create(newFlux);
 };
 
 /**
@@ -25,6 +17,7 @@ export const createFlux = async (dto: CreateFluxDto) => {
  */
 export const getFlux = async (): Promise<GetFluxDto[]> => {
     const actors = await getActors();
+    const fluxs = await FluxModel.find({});
     return fluxs.map((flux: Flux) => {
         return {
             ...flux,

@@ -1,12 +1,5 @@
-import { RegleDeGestion, CreateRegleDto } from "../types";
-
-const regles: RegleDeGestion[] = [{
-    id: 0,
-    description: "Exigence Test",
-},{
-    id: 1,
-    description: "Exigence Test 2",
-}];
+import { CreateRegleDto } from "../types";
+import RegleModel from "./regles.model";
 
 /**
  * Add a new Regle to the database
@@ -14,13 +7,11 @@ const regles: RegleDeGestion[] = [{
  * @returns The newly created Regle with its id
  */
 export const createRegle = async (dto: CreateRegleDto) => {
-    console.debug(dto);
-    const newRegle = { ...dto, id: regles.length + 1 };
-    regles.push(newRegle);
-    return newRegle;
+    const newRegle = { ...dto, id: Math.floor(Math.random() * 3000) };
+    return RegleModel.create(newRegle);
 };
 
 /**
  * Return all regles from the database
  */
-export const getRegles = async () => regles;
+export const getRegles = async () => RegleModel.find({});

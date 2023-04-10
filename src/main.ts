@@ -5,10 +5,14 @@ import actorRouter from "./actors/actors.router";
 import fluxRouter from "./flux/flux.router";
 import regleRouter from "./regles/regles.router";
 import exigenceRouter from "./exigences/exigences.router";
+import { MongoClient, ServerApiVersion } from 'mongodb';
+import mongoose from "mongoose";
+
+const uri = "mongodb+srv://kvnbrd:qnm76chL531cnrQc@cluster0.ka7n5.mongodb.net/estory-map?retryWrites=true&w=majority";
+
+mongoose.connect(uri);
 
 const app = express();
-
-console.log("Starting application @ http://localhost:3001");
 
 const corsOptions = {
     origin: "http://localhost:3000",
@@ -24,5 +28,6 @@ app.use("/exigences", exigenceRouter);
 app.use("/regles", regleRouter);
 
 app.listen(3001);
+console.log("Starting application @ http://localhost:3001");
 
-export default app;
+export {app};

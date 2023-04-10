@@ -1,14 +1,5 @@
-import { Actor, CreateActorDto } from "../types";
-
-const actors: Actor[] = [{
-    id: 0,
-    nom_role: "Eleve",
-    attributs: [{ nom: "string" }, { age: "int" }]
-},{
-    id: 1,
-    nom_role: "Professeur",
-    attributs: [{ nom: "string" }, { age: "int" }]
-}];
+import { CreateActorDto } from "../types";
+import ActorModel from "./actors.model";
 
 /**
  * Add a new Actor to the database
@@ -16,13 +7,11 @@ const actors: Actor[] = [{
  * @returns The newly created Actor with its id
  */
 export const createActor = async (dto: CreateActorDto) => {
-    console.debug(dto);
-    const newActor = { ...dto, id: actors.length + 1 };
-    actors.push(newActor);
-    return newActor;
+    const newActor = { ...dto, id: Math.floor(Math.random() * 3000) };
+    return ActorModel.create(newActor);
 };
 
 /**
  * Return all actors from the database
  */
-export const getActors = async () => actors;
+export const getActors = async () => ActorModel.find({});
