@@ -14,12 +14,10 @@
       "strict": true,
       "types": [
         "node",
-        "chai",
-        "mocha"
       ]
     },
     "exclude": [
       "node_modules",
-      "test"
+      "tests"
     ]
 }
