@@ -28,9 +28,13 @@ export const getProjects = async () => {
   const projects = await ProjectModel.find({});
 
   return projects.map(project => {
+    console.log(project)
     return {
-      ...project,
-      flux: fluxs.filter(flux => project.fluxs.includes(flux.id)),
+      id: project.id,
+      name: project.name,
+      description: project.description,
+      mail_client: project.mail_client,
+      fluxs: fluxs.filter(flux => project.fluxs.includes(flux.id)),
       actors: actors.filter(actor => project.actors.includes(actor.id)),
       regles: regles.filter(regle => project.regles.includes(regle.id)),
       exigences: exigences.filter(exigence => project.exigences.includes(exigence.id)),
@@ -42,7 +46,7 @@ export const getProjects = async () => {
  * @param id The id of the project to delete
  */
 export const deleteProjectById = async (id: number) => {
-  return ProjectModel.findByIdAndDelete(id);
+  return ProjectModel.findOneAndDelete({id});
 };
 
 /**

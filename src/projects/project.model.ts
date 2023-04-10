@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const projectSchema = new Schema({
     id: Number,
-    userId: Number,
+    userId: String,
     name: String,
     description: String,
     mail_client: String,

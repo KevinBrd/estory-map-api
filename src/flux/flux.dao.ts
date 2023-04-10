@@ -20,7 +20,8 @@ export const getFlux = async (): Promise<GetFluxDto[]> => {
     const fluxs = await FluxModel.find({});
     return fluxs.map((flux: Flux) => {
         return {
-            ...flux,
+            id: flux.id,
+            nom_flux: flux.nom_flux,
             acteur_recepteur: actors.find(actor => actor.id === flux.acteur_recepteur),
             acteur_emetteur: actors.find(actor => actor.id === flux.acteur_emetteur),
         }

@@ -5,6 +5,7 @@
       "lib": [
         "ES6"
       ],
+      "jsx": "react",
       "outDir": "./dist",
       "rootDir": "./src",
       "sourceMap": true,
