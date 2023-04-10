@@ -1,22 +1,62 @@
 [
-    {
-      "name": "Project 1",
-      "description": "Simple desc.",
-      "mail_client": "test@exemple.com"
-    },
-    {
-      "name": "Project 2",
-      "description": "Middle desc.",
-      "mail_client": "john.doe@gmail.com"
-    },
-    {
-      "name": "Project 3",
-      "description": "Hard desc.",
-      "mail_client": "undefined@hotmail.com"
-    },
-    {
-      "name": "Project 4",
-      "description": "Very Hard desc.",
-      "mail_client": "univ.lille@sfr.fr"
-    }
-  ]
+  {
+    "id": 1,
+    "userId": 1,
+    "name": "Projet 1",
+    "description": "Description du projet 1",
+    "mail_client": "mailClient@gmail.com",
+    "actors": [
+        {
+          "id": 1,
+          "nom_role": "Acteur 1",
+          "attributs": [
+              {
+                "nom": "Nom",
+                "type": "string",
+                "valeur": "Dupont"
+              },
+              {
+                "nom": "Age",
+                "type": "number",
+                "valeur": 25
+              }
+          ]
+        }
+    ],
+    "fluxs": [
+        {
+          "id": 1,
+          "nom_flux": "Flux 1",
+          "acteur_emmeteur": {
+          "id": 1,
+          "nom_role": "Acteur 1",
+          "attributs": [
+            {
+              "nom": "Nom",
+              "type": "string",
+              "valeur": "Dupont"
+            },
+            {
+              "nom": "Age",
+              "type": "number",
+              "valeur": 25
+            }
+          ]
+          }
+        }
+    ],
+    "exigences": [
+      {
+        "id": 1,
+        "description": "Exigence 1",
+        "type": "Fonctionnelle"
+      }
+    ],
+    "regles": [
+      {
+        "id": 1,
+        "description": "Regle 1"
+      }
+    ]
+  }
+]

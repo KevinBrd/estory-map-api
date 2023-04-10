@@ -13,9 +13,17 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-    const dto = req.body;
+    const { id, name, description, userId, mail_client } = req.body;
 
-    res.json(await createProject(dto));
+    res.json(
+        await createProject({
+            id,
+            name,
+            description,
+            userId,
+            mail_client,
+        })
+    );
 });
 
 router.delete("/:id", async (req: Request, res: Response) => {
@@ -26,10 +34,8 @@ router.delete("/:id", async (req: Request, res: Response) => {
 
 router.put("/:id", async (req: Request, res: Response) => {
     const id = req.params.id as string;
-    const dto = req.body;
-
     try {
-        res.json(await updateProjectById(+id, dto));
+        res.json(await updateProjectById(+id, req.body));
     } catch (e) {
         res.status(404).json({ message: "Project not found" });
     }
