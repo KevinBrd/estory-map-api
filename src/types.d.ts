@@ -1,9 +1,13 @@
 export type CreateProjectDto = {
-    id: number;
     userId: number;
     name: string;
     description: string;
     mail_client?: string;
+};
+
+export type CreateActorDto = {
+    nom_role: string;
+    attributs?: { [key: string]: any }[];
 };
 
 export type Actor = {

@@ -13,11 +13,10 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-    const { id, name, description, userId, mail_client } = req.body;
+    const { name, description, userId, mail_client } = req.body;
 
     res.json(
         await createProject({
-            id,
             name,
             description,
             userId,
